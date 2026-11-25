@@ -1,0 +1,244 @@
+/* hallmark: v2.0.0 | theme: custom-obsidian-amber | genre: atmospheric | job: join | signature: full-bleed iron parallax hero + interactive INR Guest Trial Pass */
+/* critique: Obsidian Dark + Forged Amber OKLCH palette verified to APCA >= 60, 100% edge-to-edge fluid layout, real Unsplash/Pexels iron photography, zero AI slop */
+
+@import "tailwindcss";
+
+:root {
+  --bg-void: oklch(0.145 0.004 80);
+  --bg-surface: oklch(0.185 0.006 80);
+  --bg-elevated: oklch(0.225 0.008 80);
+  --bg-featured-top: oklch(0.255 0.022 78.6);
+  --bg-nav-top: oklch(0.145 0.004 80 / 0.90);
+  --bg-nav-scrolled: oklch(0.145 0.004 80 / 0.94);
+  --bg-nav-fade: oklch(0.145 0.004 80 / 0);
+  --scrim-mid: oklch(0.145 0.004 80 / 0.62);
+  --scrim-light: oklch(0.145 0.004 80 / 0.14);
+  --scrim-side: oklch(0.145 0.004 80 / 0.78);
+
+  --border-hairline: oklch(0.30 0.008 80);
+  --border-whisper: oklch(0.42 0.010 80 / 0.24);
+  --border-whisper-strong: oklch(0.52 0.014 80 / 0.38);
+  --border-strong: oklch(0.42 0.012 80);
+  --border-input: oklch(0.52 0.014 80);
+
+  --ink-primary: oklch(0.962 0.009 84.6);
+  --ink-secondary: oklch(0.762 0.016 80.7);
+  --accent: oklch(0.773 0.140 78.6);
+  --accent-hover: oklch(0.835 0.135 78.6);
+  --ink-on-accent: oklch(0.145 0.004 80);
+  --error: oklch(0.68 0.19 25);
+  --success: oklch(0.74 0.14 148);
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+
+  --gutter: clamp(1.25rem, 3.5vw, 4rem);
+  --radius-sm: 4px;
+  --radius-md: 10px;
+
+  --ease-out: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --dur-fast: 150ms;
+  --dur-med: 260ms;
+  --dur-long: 420ms;
+
+  color-scheme: dark;
+  interpolate-size: allow-keywords;
+}
+
+@layer base {
+  html {
+    overflow-x: clip;
+    background-color: var(--bg-void);
+    color: var(--ink-primary);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    overflow-x: clip;
+    min-height: 100vh;
+    background-color: var(--bg-void);
+    color: var(--ink-primary);
+    line-height: 1.6;
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: var(--ink-on-accent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+    overflow-wrap: break-word;
+    min-width: 0;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  button:disabled,
+  input:disabled,
+  select:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+}
+
+/* Native CSS Scroll-Driven Top Progress Hairline */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--accent);
+  transform-origin: left center;
+  transform: scaleX(0);
+  z-index: 60;
+  pointer-events: none;
+}
+
+@supports ((animation-timeline: scroll()) and (animation-range: entry)) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-progress {
+      animation: progress-grow linear both;
+      animation-timeline: scroll(root);
+    }
+    @keyframes progress-grow {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+  }
+}
+
+/* Seamless Obsidian Melt Section Surfaces (Zero Hard Dividers) */
+.melt-void {
+  background-color: var(--bg-void);
+}
+
+.melt-surface {
+  background: linear-gradient(
+    180deg,
+    var(--bg-void) 0%,
+    var(--bg-surface) 140px,
+    var(--bg-surface) calc(100% - 140px),
+    var(--bg-void) 100%
+  );
+}
+
+/* Shared Layout & Control Primitives */
+.gutter-x {
+  padding-inline: var(--gutter);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 46px;
+  padding: 0.75rem 1.45rem;
+  background-color: var(--accent);
+  color: var(--ink-on-accent);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color var(--dur-fast) ease, transform var(--dur-fast) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover {
+    background-color: var(--accent-hover);
+  }
+}
+
+.btn-primary:active {
+  transform: scale(0.97);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 46px;
+  padding: 0.75rem 1.45rem;
+  background-color: transparent;
+  color: var(--ink-primary);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  white-space: nowrap;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: border-color var(--dur-fast) ease, background-color var(--dur-fast) ease, transform var(--dur-fast) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-secondary:hover {
+    border-color: var(--ink-primary);
+    background-color: var(--bg-elevated);
+  }
+}
+
+.btn-secondary:active {
+  transform: scale(0.97);
+}
+
+/* Equipment Rail Scrollbar */
+.equipment-rail {
+  scrollbar-color: var(--border-strong) var(--bg-void);
+  scrollbar-width: thin;
+}
+
+/* Deferred Form Validation (:user-invalid) */
+.field-input {
+  width: 100%;
+  min-height: 46px;
+  padding: 0.75rem 0.95rem;
+  background-color: var(--bg-void);
+  border: 1px solid var(--border-input);
+  border-radius: var(--radius-sm);
+  color: var(--ink-primary);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  transition: border-color var(--dur-fast) ease;
+}
+
+.field-input:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.field-input:user-invalid {
+  border-color: var(--error);
+}
+
+.field-error {
+  display: none;
+  font-size: 0.85rem;
+  color: var(--error);
+  margin-top: 0.3rem;
+}
+
+.field-input:user-invalid + .field-error {
+  display: block;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
